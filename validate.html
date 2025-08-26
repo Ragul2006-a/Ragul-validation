@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Licence Application</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70') no-repeat center center fixed;
+      background-size: cover;   /* Full screen background */
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.92); /* White transparent form */
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .terms {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .terms input {
+      width: auto;
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 15px;
+      background: #0078d7;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+  </style>
+</head>
+<body>
+  <form id="licenceForm">
+    <h2>Vehicle Licence Application Form</h2>
+
+    <label>Full Name:</label>
+    <input type="text" name="fullname" pattern="[A-Za-z ]{2,}" required>
+
+    <label>Date of Birth:</label>
+    <input type="date" name="dob" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+
+    <label>Mobile Number:</label>
+    <input type="text" name="mobile" pattern="[0-9]{10}" required>
+
+    <label>Aadhaar Number:</label>
+    <input type="text" name="aadhaar" pattern="[0-9]{12}" required>
+
+    <label>PIN Code:</label>
+    <input type="text" name="pincode" pattern="[0-9]{6}" required>
+
+    <label>Vehicle Number:</label>
+    <input type="text" name="vehicleno" pattern="[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}" required>
+
+    <label>Address:</label>
+    <textarea name="address" rows="3" required></textarea>
+
+    <label>Licence Type:</label>
+    <select name="licenceType" required>
+      <option value="">-- Select --</option>
+      <option value="two">Two Wheeler</option>
+      <option value="four">Four Wheeler</option>
+      <option value="both">Both</option>
+    </select>
+
+    <div class="terms">
+      <input type="checkbox" id="terms" required>
+      <label for="terms">I accept the Terms & Conditions</label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    document.getElementById("licenceForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      let dob = document.querySelector("input[name='dob']").value;
+      let birthDate = new Date(dob);
+      let today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let m = today.getMonth() - birthDate.getMonth();
+
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      if (age < 18) {
+        alert("Applicant must be at least 18 years old.");
+        return;
+      }
+
+      alert("✅ Your Vehicle Licence Application has been submitted successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>
